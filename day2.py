@@ -12,13 +12,8 @@ def get_letter_counts(box_id):
     return letter_counts
 
 def check_counts(letter_counts):
-    counts = [0, 0]
-    for key in letter_counts:
-        if letter_counts[key] == 2:
-            counts[0] += 1
-        if letter_counts[key] == 3:
-            counts[1] += 1
-    return [1 if counts[0] > 0 else 0, 1 if counts[1] > 0 else 0]
+    return [1 if 2 in letter_counts.values() else 0,
+            1 if 3 in letter_counts.values() else 0]
 
 def part_one():
     data = get_data('day2-1.txt')
