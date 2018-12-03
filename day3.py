@@ -15,7 +15,7 @@ class Canvas:
         self.canvas[coords[0] - 1][coords[1] - 1].append(id)
         if len(self.canvas[coords[0] - 1][coords[1] - 1]) > 1:
             for id in self.canvas[coords[0] - 1][coords[1] - 1]:
-                self.overlap.add(id) 
+                self.overlap.add(id)
     def get_overlap(self):
         return sum([1 for line in self.canvas for list in line if len(list) > 1])
     def __str__(self):
@@ -43,7 +43,7 @@ def get_data(filename):
         instructions.append(Instruction(int(id), [int(i) for i in left_corner], [int(i) for i in dims]))
     return instructions
 
-def part_one(filename, bounds=[1000,1000], print_canvas=False):
+def day_three(filename, bounds=[1000,1000], print_canvas=False):
     data = get_data(filename)
     canvas = Canvas(bounds)
     for instruction in data:
@@ -51,8 +51,17 @@ def part_one(filename, bounds=[1000,1000], print_canvas=False):
             canvas.add_claim(item, instruction.id)
     if print_canvas:
         print(canvas)
-    return canvas.get_overlap()
+
+    non_overlap_id = 0
+    for i in data:
+        if i.id not in canvas.overlap:
+            non_overlap_id = i.id
+            break
+    return [canvas.get_overlap(), non_overlap_id]
+
 
 if __name__ == '__main__':
-    print(f'Number of overlapping square inches in test file: {part_one("day3-test.txt", bounds=[11, 9], print_canvas=True)}')
-    print(f'Number of overlapping square inches in real file: {part_one("day3-1.txt")}')
+    test_run = day_three("day3-test.txt", bounds=[11, 9], print_canvas=True)
+    real_run = day_three("day3-1.txt")
+    print(f'Number of overlapping square inches in test file: {test_run[0]}\nId with no overlap: {test_run[1]}')
+    print(f'Number of overlapping square inches in real file: {real_run[0]}\nId with no overlap: {real_run[1]}')
