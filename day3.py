@@ -17,7 +17,7 @@ class Canvas:
             for id in self.canvas[coords[0] - 1][coords[1] - 1]:
                 self.overlap.add(id)
     def get_overlap(self):
-        return sum([1 for line in self.canvas for list in line if len(list) > 1])
+        return sum([1 for line in self.canvas for item in line if len(item) > 1])
     def __str__(self):
         print_string = ''
         for line in self.canvas:
