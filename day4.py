@@ -31,8 +31,13 @@ def get_data(filename):
     return cleaned_data
 
 def print_guards(guards):
+    rows = []
+    headers = ['ID']
+    for i in range(60):
+    headers.append(str(i))
     for key, value in guards.items():
-        print(f'ID: {key} {value}\n')
+        rows.append([key, value])
+    print tabulate(rows, headers=headers)
 
 def part_one(filename, pretty_print=False):
     data = get_data(filename)
